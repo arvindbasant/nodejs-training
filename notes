@@ -1,1 +1,41 @@
 NodeJs Training
+
+## source code - https://github.com/arvindbasant/nodejs-training
+
+
+fs or os modules
+
+-- preflight request
+
+Domain Driven Design
+
+-- Design Patterns
+
+Event Driven Architecture
+
+MVC
+MVVM
+
+CSV -> Col1 Col2
+
+col1-> userid
+col2-> email
+
+col1-> userid
+col2-> email
+col3-> username -> from email tru
+
+
+buffer -> 3 & 1/2 -> 3 
+
+1/2 + 3.25 
+
+
+Axios -> api call in cross domain
+
+send -> OPTIONS request -> if auth -> 200OK -> 
+
+
+abc.com -> xyz.com(abc.com)
+POST -> Axios -> OPTIONS call to check if abc.com is whitelisted
+
