@@ -1,18 +1,18 @@
-// import fs from 'fs';
-// import path from 'path';
+import fs from 'fs';
+import path from 'path';
 
-// // gets file in buffer
-// fs.readFile(path.resolve('tmp', 'hello.txt'), { encoding: 'utf-8' }, (err, content) => {
-//   if (err)
-//     return console.error(err);
-//   console.log(content);
-// });
+// gets file in buffer
+fs.readFile(path.resolve('tmp', 'hello.txt'), { encoding: 'utf-8' }, (err, content) => {
+  if (err)
+    return console.error(err);
+  console.log(content);
+});
 
-// fs.readFile(path.resolve('tmp', 'hello.txt'), (err, content) => {
-//   if (err)
-//     return console.error(err);
-//   console.log(content.toString('hex'));
-// });
+fs.readFile(path.resolve('tmp', 'hello.txt'), (err, content) => {
+  if (err)
+    return console.error(err);
+  console.log(content.toString('hex'));
+});
 
 // some small file -> config files(json)
 // fs.readFileSync -> load entire file into main memory
@@ -21,22 +21,22 @@
 // O(n) -> n => no of lines
 
 
-// import readline from 'readline';
-// import fs from 'fs';
-// import path from 'path';
+import readline from 'readline';
+import fs from 'fs';
+import path from 'path';
 
-// let lineCount = 0;
+let lineCount = 0;
 
-// const rl = readline.createInterface({
-//   input: fs.createReadStream(path.resolve('tmp', 'hello.txt')),
-//   output: process.stdout, // write into another file or just ignore
-//   terminal: false
-// });
+const rl = readline.createInterface({
+  input: fs.createReadStream(path.resolve('tmp', 'hello.txt')),
+  output: process.stdout, // write into another file or just ignore
+  terminal: false
+});
 
-// rl.on('line', (line) => {
-//   lineCount++;
-//   console.log(line);
-// });
+rl.on('line', (line) => {
+  lineCount++;
+  console.log(line);
+});
 
 // get filestat -> size of file -> buffer length -> split into n files
 
@@ -73,7 +73,7 @@ import http from 'http';
 import fs from 'fs';
 
 http.createServer((req, res) => {
-  let stream  = fs.createReadStream('path');
+  let stream = fs.createReadStream('path');
   stream.pipe(res);
 }).listen(5678);
 
@@ -88,3 +88,48 @@ fs.createReadStream('file-path')
   .pipe(fs.createWriteStream('destination-file.gz'))
 
 
+// fs module -> callbacks
+// fs.promises 
+
+import express from 'express';
+const app = express();
+import DataLogger from './DataLogger';
+
+const dataLogger = new DataLogger();
+
+dataLogger.on('log', data => {
+  if (dataLogger.logLevel == 'DEV') {
+    console.log(`logging - ${data}`);
+  }
+});
+
+const fsPromises = fs.promises;
+
+const readTextFile = async () => {
+  // return new Promise((resolve, reject) => {
+  //   fs.readFile(path.resolve('tmp', 'hello.txt'), (err, content) => {
+  //     if (err)
+  //       return reject(err);
+  //     resolve(content);
+  //   });
+  // })
+  let data = await fsPromises.readFile(path.resolve('tmp', 'hello.txt'), {});
+  return data;
+};
+
+
+app.get('/', (req, res) => {
+  // readTextFile()
+  // .then(data => res.send(data))
+  // .catch(err => console.log(err))
+  // .finally('msg')
+
+  try {
+    let data = await readTextFile();
+    dataLogger.emit('log', data);
+    // raise a custom event to log the data
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(err);
+  }
+});
