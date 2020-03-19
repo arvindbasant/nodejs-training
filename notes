@@ -40,3 +40,20 @@ send -> OPTIONS request -> if auth -> 200OK ->
 abc.com -> xyz.com(abc.com)
 POST -> Axios -> OPTIONS call to check if abc.com is whitelisted
 
+
+#### 
+
+crypto module of nodejs
+
+Cipher/Decipher
+DiffieHellman/ECDH
+HASH - MD5, SHA256 - aragon2, PBKDF2, scrypt, bcrypt
+HMAC
+Sign/Verify
+
+
+## cors
+https://bigcodenerd.org/enable-cors-node-js-without-express/
+https://expressjs.com/en/resources/middleware/cors.html
+
+
