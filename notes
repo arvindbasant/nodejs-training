@@ -56,4 +56,9 @@ Sign/Verify
 https://bigcodenerd.org/enable-cors-node-js-without-express/
 https://expressjs.com/en/resources/middleware/cors.html
 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS
 
+
+## 
+setTimeout(console.log('2'), 0) // Book - You don't know JS -> download pdf
+console.log([] + [])
